@@ -1,0 +1,26 @@
+{
+  "name": "todolist-01",
+  "private": true,
+  "version": "0.0.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vite --port 3000",
+    "build": "tsc -b && vite build",
+    "test": "vitest",
+    "preview": "vite preview"
+  },
+  "dependencies": {
+    "react": "19.0.0",
+    "react-dom": "19.0.0"
+  },
+  "devDependencies": {
+    "@types/react": "19.0.2",
+    "@types/react-dom": "19.0.2",
+    "@vitejs/plugin-react-swc": "3.7.2",
+    "globals": "15.14.0",
+    "typescript": "5.7.2",
+    "vite": "6.0.6",
+    "vitest": "2.1.8"
+  },
+  "packageManager": "pnpm@10.6.4+sha512.da3d715bfd22a9a105e6e8088cfc7826699332ded60c423b14ec613a185f1602206702ff0fe4c438cb15c979081ce4cb02568e364b15174503a63c7a8e2a5f6c"
+}
