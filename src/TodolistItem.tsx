@@ -1,22 +1,44 @@
 import {TodolistTitle} from "./TodolistTitle.tsx";
 import {Button} from "./Button.tsx";
 import { FilterValues} from "./App.tsx";
+import {ChangeEvent, KeyboardEvent, useState } from "react";
+
 type TodolistItemPropsType = {
     title: string
     tasks: taskType[]
-    deleteTask: (id: number) => void
+    deleteTask: (id: string) => void
     changeFilter: (filter: FilterValues) => void
+    createTask: (title: string) => void
 }
  export type taskType = {
-    id: number
+    id: string
     title: string
     isDone: boolean
 }
-export const TodolistItem = ({title, tasks, deleteTask, changeFilter}: TodolistItemPropsType)=> {
+export const TodolistItem = ({title, tasks, deleteTask, changeFilter, createTask}: TodolistItemPropsType)=> {
+
     //1. const title = props.title
    // const tasks = props.tasks
    // 2. const{title: title, tasks: tasks } = props
    // 3. const{title, tasks} = props
+
+    const[taskTitle, setTaskTitle]= useState('')
+
+    const createTaskHandler = ()=>{
+        createTask(taskTitle)
+        setTaskTitle('')}
+
+    const changeTaskTitleHandler = (event: ChangeEvent<HTMLInputElement>) =>{
+        setTaskTitle(event.currentTarget.value)
+
+    }
+    const createTaskEnterHandler = (event: KeyboardEvent<HTMLInputElement>) =>{
+        if(event.key === "Enter"){
+            createTaskHandler()
+        }
+    }
+
+
     const tasksItems = tasks.map(task => {
         return(
             <li>
@@ -30,13 +52,17 @@ export const TodolistItem = ({title, tasks, deleteTask, changeFilter}: TodolistI
            <TodolistTitle title={title}/>
 
             <div>
-                <input/>
-                <Button title = "+"/>
+                <input value={taskTitle}
+                       onChange={changeTaskTitleHandler}
+                       onKeyDown={createTaskEnterHandler}/>
+
+                <Button title = "+" onClick ={createTaskHandler}   />
             </div>
+
             <ul>
                 {tasksItems}
-
             </ul>
+
             <div>
                 <Button title= "Add" onClick ={()=> changeFilter("All")}/>
                 <Button title= "Active" onClick={()=> changeFilter("Active")}/>
