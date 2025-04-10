@@ -42,7 +42,7 @@ export const TodolistItem = ({title, tasks, deleteTask, changeFilter, createTask
     const tasksItems = tasks.map(task => {
         return(
             <li>
-                <input type="checkbox" checked={task.isDone}/> <span>{task.title}</span>
+                <input  type="checkbox" checked={task.isDone}/> <span>{task.title}</span>
                 <Button onClick= {()=> deleteTask(task.id)} title= "x"/>
             </li>
         )
@@ -53,10 +53,13 @@ export const TodolistItem = ({title, tasks, deleteTask, changeFilter, createTask
 
             <div>
                 <input value={taskTitle}
+                       placeholder="Enter task title"
                        onChange={changeTaskTitleHandler}
-                       onKeyDown={createTaskEnterHandler}/>
-
-                <Button title = "+" onClick ={createTaskHandler}   />
+                       onKeyDown={createTaskEnterHandler}
+                />
+                <Button title = "+" onClick ={createTaskHandler} disabled={!taskTitle || taskTitle.length >10}   />
+                {taskTitle && <div>Maximum 10 characters</div>}
+                {taskTitle.length > 10 && <div style={{color: "red"}}>Too long title</div>}
             </div>
 
             <ul>
