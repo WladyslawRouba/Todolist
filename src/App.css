@@ -6,3 +6,9 @@
 .app > div {
   margin-right: 50px;
 }
+.active-filter {
+  background-color: lightgreen;
+}
+.is-done {
+  opacity: 0.5;
+}
