@@ -25,6 +25,7 @@ export const TodolistItem = ({title, tasks, deleteTask, changeFilter, createTask
    // 3. const{title, tasks} = props
 
     const[taskTitle, setTaskTitle]= useState('')
+    const[error, setError]= useState<string | null>(null)
 
     /*const createTaskHandler = ()=>{
         createTask(taskTitle)
@@ -34,11 +35,14 @@ export const TodolistItem = ({title, tasks, deleteTask, changeFilter, createTask
         if(trimmedTitle !== ''){
             createTask(trimmedTitle)
             setTaskTitle('')
+        }else{
+            setError('Task title cannot be empty')
         }
     }
 
     const changeTaskTitleHandler = (event: ChangeEvent<HTMLInputElement>) =>{
         setTaskTitle(event.currentTarget.value)
+        setError(null)
 
     }
     const createTaskEnterHandler = (event: KeyboardEvent<HTMLInputElement>) =>{
@@ -65,14 +69,15 @@ export const TodolistItem = ({title, tasks, deleteTask, changeFilter, createTask
            <TodolistTitle title={title}/>
 
             <div>
-                <input value={taskTitle}
+                <input className={error ? "error" : ""}
+                       value={taskTitle}
                        placeholder="Enter task title"
                        onChange={changeTaskTitleHandler}
                        onKeyDown={createTaskEnterHandler}
                 />
-                <Button title = "+" onClick ={createTaskHandler} disabled={!taskTitle || taskTitle.length >10}   />
-                {taskTitle && <div>Maximum 10 characters</div>}
-                {taskTitle.length > 10 && <div style={{color: "red"}}>Too long title</div>}
+                <Button title="+" onClick={createTaskHandler}/>
+                {error &&<div className={'error-message'}>{error}</div>}
+
             </div>
 
             <ul>
