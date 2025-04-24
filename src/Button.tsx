@@ -1,6 +1,6 @@
 type PropsType = {
     title: string
-    onClick?: () => void
+    onClick: () => void
     disabled?: boolean
     className?: string
 }
