@@ -36,6 +36,8 @@ export const TodolistItem = ({title, tasks, deleteTask, changeFilter, createTask
             createTask(title,todolistId )
 
     }
+    const changeTodolistTitleHandler = (title: string) => {
+        changeTodolistTitle(title, todolistId)}
 
    /* const changeTaskTitleHandler = (event: ChangeEvent<HTMLInputElement>) =>{
         setTaskTitle(event.currentTarget.value)
@@ -53,18 +55,26 @@ export const TodolistItem = ({title, tasks, deleteTask, changeFilter, createTask
         const changeTaskStatusHandler = (event: ChangeEvent<HTMLInputElement>) => {
             const newStatusValue = event.currentTarget.checked
             changeTaskStatus(task.id, newStatusValue, todolistId)
+
+        }
+        const changeTaskTitleHandler =(title: string)=>{
+            changeTaskTitle(task.id, title, todolistId)
         }
         return(
             <li key={task.id} className={task.isDone ? 'is-done' : ''}>
-                <input  onChange={changeTaskStatusHandler} type="checkbox" checked={task.isDone}/> <EditableSpan title={task.title} />
+                <input  onChange={changeTaskStatusHandler} type="checkbox" checked={task.isDone}/>
+                <EditableSpan title={task.title} changeTitle={changeTaskTitleHandler} />
                 <Button onClick= {()=> deleteTask(task.id, todolistId)} title= "x"/>
             </li>
         )
+
     })
+
     return (
         <div>
             <h3>
-                {title}
+
+                <EditableSpan title={title} changeTitle={changeTodolistTitleHandler}/>
                 <Button title="X" onClick= {()=> deleteTodolist(todolistId)}/>
             </h3>
 
