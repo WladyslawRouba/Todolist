@@ -1,5 +1,7 @@
-import {Button} from "./Button.tsx";
+// import {Button} from "./Button.tsx";
+import AddCircleOutlineIcon from '@mui/icons-material/AddCircleOutline';
 import {ChangeEvent, KeyboardEvent, useState} from "react";
+import {IconButton,TextField} from "@mui/material";
 type Props = {
     createItem: (title: string) => void
 }
@@ -32,14 +34,24 @@ export const CreateItemForm = ({createItem}: Props) => {
     return (
 
         <div>
-            <input className={error ? "error" : ""}
-                   value={itemTitle}
-                   placeholder="Enter task title"
-                   onChange={changeItemTitleHandler}
-                   onKeyDown={createItemEnterHandler}
+            <TextField
+                size="small"
+                variant="outlined"
+                // className={error ? "error" : ""}
+                error={!!error}
+                value={itemTitle}
+                placeholder="Enter task title"
+                onChange={changeItemTitleHandler}
+                onKeyDown={createItemEnterHandler}
+                helperText={error}
             />
-            <Button title="+" onClick={createItemHandler}/>
-            {error &&<div className={'error-message'}>{error}</div>}
+            {/*<Button title="+" onClick={createItemHandler}/>*/}
+            <IconButton
+                onClick={createItemHandler}
+            >
+                <AddCircleOutlineIcon/>
+            </IconButton>
+            {/*{error &&<div className={'error-message'}>{error}</div>}*/}
 
         </div>
     )
