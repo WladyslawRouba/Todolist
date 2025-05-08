@@ -12,7 +12,12 @@ import Container from '@mui/material/Container';
 import Grid from '@mui/material/Grid';
 import Paper from '@mui/material/Paper';
 import Box from '@mui/material/Box';
+import CssBaseline from '@mui/material/CssBaseline';
 import {NavButton} from "./NavButton.ts";
+import { createTheme, ThemeProvider, } from '@mui/material/styles';
+import {blue, deepOrange} from '@mui/material/colors';
+import Switch from '@mui/material/Switch';
+
 
 export type FilterValues = "All" | "Active" | "Completed"
 export type Todolist = {
@@ -121,35 +126,47 @@ function App() {
 
         )
     })
+    const  [isDarkMode, setIsDarkMode] = useState(false)
+const theme = createTheme({
 
+        palette: {
+            primary: blue,
+            secondary: deepOrange,
+        mode: isDarkMode ? "dark" : "light",
+            }
+    }
+)
     return (
         <div className="app">
-            <AppBar position="static">
-                <Toolbar>
-                    <Container sx={{ display: 'flex', justifyContent: 'space-between'}}>
-                        <IconButton color="inherit">
-                            <MenuIcon />
-                        </IconButton>
-                        <Box>
-                            <NavButton  variant="outlined">Sign in</NavButton>
-                            <NavButton sx={{m: "0 10px"}}  variant="outlined">Sign up</NavButton>
-                            <NavButton background="dodgerblue" variant="outlined">FAQ</NavButton>
-                        </Box>
-                    </Container>
+            <ThemeProvider theme={theme}>
+                <CssBaseline/>
+                <AppBar position="static">
+                    <Toolbar>
+                        <Container sx={{display: 'flex', justifyContent: 'space-between'}}>
+                            <IconButton color="inherit">
+                                <MenuIcon/>
+                            </IconButton>
+                            <Box>
+                                <NavButton variant="outlined">Sign in</NavButton>
+                                <NavButton sx={{m: "0 10px"}} variant="outlined">Sign up</NavButton>
+                                <NavButton background={theme.palette.secondary.main} variant="outlined">FAQ</NavButton>
+                                <Switch onChange={()=> setIsDarkMode(!isDarkMode)}></Switch>
+                            </Box>
+                        </Container>
 
 
-                </Toolbar>
-            </AppBar>
-            <Container>
-                <Grid container spacing={5} sx={{p:"25px 0"  }}  >
-                    <CreateItemForm createItem={createTodolist}/>
-                </Grid>
-               <Grid container spacing={5}  >
-                   {todolistComponents}
-               </Grid>
+                    </Toolbar>
+                </AppBar>
+                <Container>
+                    <Grid container spacing={5} sx={{p: "25px 0"}}>
+                        <CreateItemForm createItem={createTodolist}/>
+                    </Grid>
+                    <Grid container spacing={5}>
+                        {todolistComponents}
+                    </Grid>
 
-            </Container>
-
+                </Container>
+            </ThemeProvider>
 
         </div>
     )
