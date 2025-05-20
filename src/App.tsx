@@ -20,6 +20,7 @@ import Switch from '@mui/material/Switch';
 
 
 export type FilterValues = "All" | "Active" | "Completed"
+
 export type Todolist = {
     id: string,
     title: string,
