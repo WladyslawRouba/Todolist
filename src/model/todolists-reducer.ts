@@ -1,4 +1,5 @@
-import {Todolist, FilterValues} from '../App';
+import {Todolist, FilterValues} from '../app/App.tsx';
+import {createAction} from '@reduxjs/toolkit'
 import {v1} from "uuid";
 
 
@@ -7,10 +8,24 @@ import {v1} from "uuid";
  export type CreateTodolistAction = ReturnType<typeof createTodolistAC>
 export type ChangeTodolistTitleAction= ReturnType<typeof changeTodolistTitleAC>
 export type changeTodolistFilterAction = ReturnType<typeof changeTodolistFilterAC>
+export const todolistId_1 = "todolist1"
+export const todolistId_2 = "todolist2"
+
 
  type ActionType = DeleteTodolistAction | CreateTodolistAction | ChangeTodolistTitleAction | changeTodolistFilterAction
 
-const initialState: Todolist[] = [];
+export const deleteTodolistAC = createAction< {id: string}> ('todolists/deleteTodolist')
+export const changeTodolistTitleAC = createAction <{id: string, title: string}>('todolists/changeTodolistTitle')
+export const changeTodolistFilterAC = createAction <{id: string, filter: FilterValues}>('todolists/changeTodolistFilter')
+export const createTodolistAC = createAction ('todolists/createTodolist', (title: string)=>{
+    return {payload:{ title, id: v1() }}
+})
+
+
+const initialState: Todolist[] = [
+    {id: todolistId_1, title: "What to learn", filter: "All"},
+    {id: todolistId_2, title: "What to buy", filter: "All"},
+];
 
 export const todolistsReducer = (todolists: Todolist[] = initialState, action : ActionType): Todolist[] => {
     switch (action.type) {
@@ -31,28 +46,7 @@ export const todolistsReducer = (todolists: Todolist[] = initialState, action : 
         }
 
 }
-export const deleteTodolistAC = (id: string)=> ({
-        type: 'delete_todolist',
-        payload: {
-            id
 
-        }
-    } as const)
 
-export const createTodolistAC = (title: string) => ({
-    type: 'create_todolist',
-    payload: {
-        title, id: v1()
-    }
 
-}as const)
-
-export const changeTodolistTitleAC = (payload: {id: string, title: string}) => ({
-    type: 'change_todolist_title',
-    payload
-}as const)
-export const changeTodolistFilterAC = (payload: {id: string, filter: FilterValues}) =>({
-    type: 'change_todolist_filter',
-    payload
-}as const)
 

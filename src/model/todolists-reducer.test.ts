@@ -1,6 +1,6 @@
 import {v1} from 'uuid'
 import { expect, test,beforeEach } from 'vitest'
-import type {Todolist} from '../App'
+import type {Todolist} from '../app/App.tsx'
 import {createTodolistAC,deleteTodolistAC, todolistsReducer, changeTodolistTitleAC,changeTodolistFilterAC} from './todolists-reducer'
 
 let todolistId1: string
@@ -27,7 +27,7 @@ test('correct todolist should be deleted', () => {
     //         id: todolistId1,
     //     },
     // } as const
-    const action = deleteTodolistAC(todolistId1)
+    const action = deleteTodolistAC({id:todolistId1})
 
     // выполнение тестируемого кода
     const endState = todolistsReducer(startState, action)

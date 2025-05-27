@@ -3,7 +3,7 @@
 import {Button, IconButton, Checkbox, List, ListItem} from "@mui/material"
 import DeleteIcon from '@mui/icons-material/Delete';
 import ClearIcon from '@mui/icons-material/Clear';
-import { FilterValues, taskType } from "./App.tsx";
+import { FilterValues, taskType } from "./app/App.tsx";
 import {ChangeEvent, } from "react";
 import { CreateItemForm } from "./CreateItemForm.tsx";
 import {EditableSpan} from "./EditableSpan.tsx";
