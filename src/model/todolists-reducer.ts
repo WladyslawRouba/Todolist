@@ -2,10 +2,6 @@ import {Todolist, FilterValues} from '../app/App.tsx';
 import {createAction, createReducer, nanoid} from '@reduxjs/toolkit'
 
 
-
- export type DeleteTodolistAction = ReturnType<typeof deleteTodolistAC>// определить типа который  возвращает deleteTodolistAC
- export type CreateTodolistAction = ReturnType<typeof createTodolistAC>
-
 export const todolistId_1 = "todolist1"
 export const todolistId_2 = "todolist2"
 

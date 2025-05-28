@@ -1,12 +1,18 @@
 import {tasksState } from '../app/App.tsx';
-import {CreateTodolistAction,  DeleteTodolistAction} from './todolists-reducer.ts';
-import { nanoid } from '@reduxjs/toolkit'
+import {
+    changeTodolistFilterAC,
+    changeTodolistTitleAC,
+    createTodolistAC,
+    deleteTodolistAC,
+
+} from './todolists-reducer.ts';
+import {createReducer, nanoid} from '@reduxjs/toolkit'
 import {todolistId_1, todolistId_2} from './todolists-reducer.ts';
 
 
 export type DeleteTaskAction = ReturnType<typeof deleteTaskAC>;
 export type CreateTaskAction = ReturnType<typeof createTaskAC>;
-export type ChangeTaskStatusAction = ReturnType<typeof changeTaskStatusAC >;
+export type  ChangeTaskStatusAction = ReturnType<typeof changeTaskStatusAC >;
 export type ChangeTaskTitleAction = ReturnType<typeof changeTaskTitleAC  >;
 
 
@@ -29,13 +35,29 @@ const initialState: tasksState = {
 }
 type actionType = CreateTodolistAction | DeleteTodolistAction | DeleteTaskAction | CreateTaskAction | ChangeTaskStatusAction | ChangeTaskTitleAction;
 
-export const tasksReducer = (tasks: tasksState = initialState, action: actionType) => {
+
+export const tasksReducer = createReducer(initialState, (builder) => {
+    builder
+        .addCase(deleteTodolistAC, (state, action) => {
+            delete state[action.payload.id]
+        })
+        .addCase(createTodolistAC, (state, action) => {
+            state[action.payload.id] = []
+        })
+        .addCase(changeTodolistTitleAC, (state, action) => {
+            const todolist = state.find(todo => todo.id === action.payload.id)
+            if (todolist) todolist.title = action.payload.title
+        })
+        .addCase(changeTodolistFilterAC,(state, action) => {
+            const index = state.findIndex(todo => todo.id === action.payload.id)
+            if (index !== -1) state[index].filter = action.payload.filter
+        })
+})
+
+
+export const tasksReducer2 = (tasks: tasksState = initialState, action: actionType) => {
 switch(action.type){
-    case 'create_todolist':
-        return {...tasks, [action.payload.id]: []}
-    case 'delete_todolist':
-          delete tasks[action.payload.id]
-        return {...tasks}
+
     default:
         return tasks
     case 'delete_task':
