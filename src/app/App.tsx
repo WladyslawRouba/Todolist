@@ -12,7 +12,7 @@ import {
 
 } from '../model/todolists-reducer.ts'
 import {deleteTaskAC, createTaskAC,changeTaskStatusAC, changeTaskTitleAC } from '../model/tasks-reducer.ts'
-//import {v1} from 'uuid'
+
 import {CreateItemForm} from "../CreateItemForm.tsx";
 import AppBar from '@mui/material/AppBar';
 import Toolbar from '@mui/material/Toolbar';

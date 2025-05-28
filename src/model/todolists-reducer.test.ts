@@ -1,15 +1,16 @@
-import {v1} from 'uuid'
+
 import { expect, test,beforeEach } from 'vitest'
 import type {Todolist} from '../app/App.tsx'
 import {createTodolistAC,deleteTodolistAC, todolistsReducer, changeTodolistTitleAC,changeTodolistFilterAC} from './todolists-reducer'
+import { nanoid } from '@reduxjs/toolkit'
 
 let todolistId1: string
 let todolistId2: string
 let startState: Todolist[] = []
 
 beforeEach(() => {
-    todolistId1 = v1()
-    todolistId2 = v1()
+    todolistId1 = nanoid()
+    todolistId2 = nanoid()
 
     startState = [
         { id: todolistId1, title: 'What to learn', filter: 'All' },

@@ -1,6 +1,6 @@
 import {tasksState } from '../app/App.tsx';
 import {CreateTodolistAction,  DeleteTodolistAction} from './todolists-reducer.ts';
-import {v1} from "uuid";
+import { nanoid } from '@reduxjs/toolkit'
 import {todolistId_1, todolistId_2} from './todolists-reducer.ts';
 
 
@@ -13,18 +13,18 @@ export type ChangeTaskTitleAction = ReturnType<typeof changeTaskTitleAC  >;
 
 const initialState: tasksState = {
     [todolistId_1]: [
-        {id: v1(), title: "HTML & CSS", isDone: true},
-        {id: v1(), title: "JS & TS", isDone: true},
-        {id: v1(), title: "Redux", isDone: false},
-        {id: v1(), title: "RTK query", isDone: false},
-        {id: v1(), title: "React", isDone: false},
+        {id: nanoid(), title: "HTML & CSS", isDone: true},
+        {id: nanoid(), title: "JS & TS", isDone: true},
+        {id: nanoid(), title: "Redux", isDone: false},
+        {id: nanoid(), title: "RTK query", isDone: false},
+        {id: nanoid(), title: "React", isDone: false},
     ],
     [todolistId_2]: [
-        {id: v1(), title: "Beer", isDone: true},
-        {id: v1(), title: "Cheeps", isDone: true},
-        {id: v1(), title: "Cola", isDone: false},
-        {id: v1(), title: "Milk", isDone: false},
-        {id: v1(), title: "Bread", isDone: false},
+        {id: nanoid(), title: "Beer", isDone: true},
+        {id: nanoid(), title: "Cheeps", isDone: true},
+        {id: nanoid(), title: "Cola", isDone: false},
+        {id: nanoid(), title: "Milk", isDone: false},
+        {id: nanoid(), title: "Bread", isDone: false},
     ]
 }
 type actionType = CreateTodolistAction | DeleteTodolistAction | DeleteTaskAction | CreateTaskAction | ChangeTaskStatusAction | ChangeTaskTitleAction;
@@ -41,7 +41,7 @@ switch(action.type){
     case 'delete_task':
         return {...tasks,[action.payload.todolistId]: tasks[action.payload.todolistId].filter((task) => task.id !== action.payload.taskId )}
     case "create_task":{
-        const newTask = {id: v1(), title: action.payload.title, isDone: false}
+        const newTask = {id: nanoid(), title: action.payload.title, isDone: false}
         const todolistId = action.payload.todolistId
         return {...tasks, [todolistId] : [newTask, ...tasks[todolistId]]}
     }
