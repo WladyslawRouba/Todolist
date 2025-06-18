@@ -1,9 +1,11 @@
 import './App.css'
-import { selectTodolist } from '../model/todolists-selector.ts'
-import { selectTasks } from '../model/tasks-selectors.ts'
-import { useAppSelector } from '../common/hooks/useAppSelector.ts'
-import { useAppDispatch } from '../common/hooks/useAppDispatch.ts'
-import {useState} from'react'
+import {selectTodolist} from '../model/todolists-selector.ts'
+import {selectTasks} from '../model/tasks-selectors.ts'
+import {selectThemeMode} from './app-selector.ts'
+import {useAppSelector} from '../common/hooks/useAppSelector.ts'
+import {useAppDispatch} from '../common/hooks/useAppDispatch.ts'
+import {changeThemeModeAC} from '../app/app-reducer.ts'
+
 import {TodolistItem} from '../TodolistItem.tsx'
 import {
     changeTodolistFilterAC,
@@ -11,7 +13,7 @@ import {
     deleteTodolistAC,
 
 } from '../model/todolists-reducer.ts'
-import {deleteTaskAC, createTaskAC,changeTaskStatusAC, changeTaskTitleAC } from '../model/tasks-reducer.ts'
+import {deleteTaskAC, createTaskAC, changeTaskStatusAC, changeTaskTitleAC} from '../model/tasks-reducer.ts'
 
 import {CreateItemForm} from "../CreateItemForm.tsx";
 import AppBar from '@mui/material/AppBar';
@@ -52,6 +54,7 @@ export type taskType = {
 export function App() {
     const todolists = useAppSelector(selectTodolist )
     const tasks = useAppSelector(selectTasks)
+    const themeMode =  useAppSelector(selectThemeMode)
     const dispatch = useAppDispatch()
 
     // CRUD Task
@@ -77,6 +80,9 @@ export function App() {
     }
 
 // CRUD TodoList
+    const changeMode = () =>{
+        dispatch(changeThemeModeAC({ themeMode: themeMode === 'light' ? 'dark' : 'light' }))
+    }
     const changeFilter = (filter: FilterValues, todolistId: string) => {
         const action = changeTodolistFilterAC ({filter, id: todolistId})
         dispatch(action)
@@ -133,13 +139,13 @@ export function App() {
         )
     })
    // const isDarkMode = useSelector<RootState, boolean>(state=> state.isDarkMode)
-   const  [isDarkMode, setIsDarkMode] = useState(false)
-const theme = createTheme({
 
+
+const theme = createTheme({
         palette: {
             primary: blue,
             secondary: deepOrange,
-        mode: isDarkMode ? "dark" : "light",
+        mode: themeMode === "dark" ? "dark" : "light",
             }
     }
 )
@@ -157,7 +163,7 @@ const theme = createTheme({
                                 <NavButton variant="outlined">Sign in</NavButton>
                                 <NavButton sx={{m: "0 10px"}} variant="outlined">Sign up</NavButton>
                                 <NavButton background={theme.palette.secondary.main} variant="outlined">FAQ</NavButton>
-                                <Switch onChange={()=> setIsDarkMode(!isDarkMode)}></Switch>
+                                <Switch onChange= {changeMode} checked={themeMode === "dark"}></Switch>
                             </Box>
                         </Container>
 
