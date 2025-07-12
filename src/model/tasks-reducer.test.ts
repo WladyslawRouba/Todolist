@@ -1,5 +1,5 @@
 import { beforeEach, expect, test } from 'vitest'
-import type {tasksState} from '../app/App.tsx'
+import type {tasksState} from '../model/tasks-reducer.ts'
 import {tasksReducer, deleteTaskAC, createTaskAC, changeTaskStatusAC, changeTaskTitleAC} from "./tasks-reducer.ts";
 import {createTodolistAC, deleteTodolistAC} from "./todolists-reducer.ts";
 

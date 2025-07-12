@@ -1,7 +1,8 @@
-import {tasksState } from '../app/App.tsx';
+
 import {createTodolistAC, deleteTodolistAC,} from './todolists-reducer.ts';
 import {createReducer, nanoid, createAction} from '@reduxjs/toolkit'
 import {todolistId_1, todolistId_2} from './todolists-reducer.ts';
+
 
 
 export const createTaskAC = createAction<{ todolistId: string, title: string }> ('create_task')
@@ -9,6 +10,15 @@ export const deleteTaskAC = createAction<{ taskId: string, todolistId: string }>
 export const changeTaskStatusAC  = createAction<{ taskId: string, todolistId: string, isDone: boolean}>  ('change_task_status')
 export const  changeTaskTitleAC  = createAction<{ taskId: string, title: string, todolistId: string }>  ('change_task_title')
 
+export type tasksState = {
+    [todolistId: string]: taskType[]
+}
+
+export type taskType = {
+    id: string
+    title: string
+    isDone: boolean
+}
 
 const initialState: tasksState = {
     [todolistId_1]: [
@@ -23,9 +33,10 @@ const initialState: tasksState = {
         {id: nanoid(), title: "Cheeps", isDone: true},
         {id: nanoid(), title: "Cola", isDone: false},
         {id: nanoid(), title: "Milk", isDone: false},
-        {id: nanoid(), title: "Bread", isDone: false},
+        {id: nanoid(), title: "Bread*/", isDone: false},
     ]
 }
+
 
 
 export const tasksReducer = createReducer(initialState, (builder) => {
@@ -51,7 +62,7 @@ export const tasksReducer = createReducer(initialState, (builder) => {
         .addCase(deleteTaskAC, (state, action) => {
             const { todolistId } = action.payload;
             if (state[todolistId]) {
-                const index = state[todolistId].findIndex((task) => task.id !== action.payload.taskId);
+                const index = state[todolistId].findIndex((task: taskType) => task.id === action.payload.taskId);
                 if (index !== -1) {
                     state[todolistId].splice(index, 1);
                 }
@@ -59,14 +70,14 @@ export const tasksReducer = createReducer(initialState, (builder) => {
         })
         .addCase(changeTaskStatusAC, (state, action) => {
             const { todolistId, taskId, isDone } = action.payload;
-            const task = state[todolistId]?.find(task => task.id === taskId);
+            const task = state[todolistId]?.find((task: taskType) => task.id === taskId);
             if (task) {
                 task.isDone = isDone;
             }
         })
         .addCase(changeTaskTitleAC, (state, action) => {
             const {taskId, todolistId, title} = action.payload
-            const task = state[todolistId]?.find(task => task.id === taskId);
+            const task = state[todolistId]?.find((task: taskType) => task.id === taskId);
             if (task) {
                 task.title = title;
             }
