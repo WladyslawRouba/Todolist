@@ -7,19 +7,13 @@ import {selectTodolist} from "@/model/todolists-selector.ts";
 
 
 
-
-
-// CRUD TodoList
-
 export const Todolists = () => {
     const todolists = useAppSelector(selectTodolist )
 
 
     return (
 <>
-    {todolists.map((tl) => {
-
-        return (
+    {todolists.map((tl) => (
             <Grid item xs={12} key={tl.id } >
                 <Paper elevation={7} sx={{ p: "25px" }}>
                     <TodolistItem
@@ -27,8 +21,7 @@ export const Todolists = () => {
                     />
                 </Paper>
             </Grid>
-        );
-    })}
+    ))}
 </>
     )
 }
