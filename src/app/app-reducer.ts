@@ -7,7 +7,7 @@ export const changeThemeModeAC = createAction<{ themeMode:ThemeMode  }> ('app/ch
 
 
 export const initialState = {
-    themeMode: 'light' as ThemeMode,
+    themeMode: 'dark' as ThemeMode,
 }
 
 

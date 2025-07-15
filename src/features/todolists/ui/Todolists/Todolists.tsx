@@ -1,9 +1,9 @@
 
 import Grid from "@mui/material/Grid";
 import Paper from "@mui/material/Paper";
-import {TodolistItem} from "@/TodolistItem.tsx";
+import {TodolistItem} from "@/features/todolists/ui/Todolists/TodolistsItem/TodolistItem.tsx";
 import {useAppSelector} from "@/common/hooks/useAppSelector.ts";
-import {selectTodolist} from "@/model/todolists-selector.ts";
+import {selectTodolist} from "@/features/todolists/model/todolists-selector.ts";
 
 
 

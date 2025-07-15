@@ -3,9 +3,9 @@ import {Checkbox, IconButton, ListItem} from "@mui/material";
 import {EditableSpan} from "@/EditableSpan.tsx";
 import ClearIcon from "@mui/icons-material/Clear";
 import type {ChangeEvent} from "react";
-import {changeTaskStatusAC, changeTaskTitleAC, deleteTaskAC} from "@/model/tasks-reducer.ts";
+import {changeTaskStatusAC, changeTaskTitleAC, deleteTaskAC} from "@/features/todolists/model/tasks-reducer.ts";
 import {useAppDispatch} from "@/common/hooks/useAppDispatch.ts";
-import type { taskType } from "@/model/tasks-reducer.ts";
+import type { taskType } from "@/features/todolists/model/tasks-reducer.ts";
 
 type TodolistItemPropsType = {
     task: taskType;

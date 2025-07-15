@@ -1,5 +1,5 @@
 import {Button} from "@mui/material";
-import {changeTodolistFilterAC, FilterValues, Todolist} from "@/model/todolists-reducer.ts";
+import {changeTodolistFilterAC, FilterValues, Todolist} from "@/features/todolists/model/todolists-reducer.ts";
 import {useAppDispatch} from "@/common/hooks/useAppDispatch.ts";
 
 type TodolistItemPropsType = {
