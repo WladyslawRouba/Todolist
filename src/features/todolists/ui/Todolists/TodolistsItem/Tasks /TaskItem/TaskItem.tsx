@@ -1,6 +1,6 @@
-import {getListItemSx} from "@/TodolistItem.styles.ts";
+import {getListItemSx} from "./TaskItem.styles.ts"
 import {Checkbox, IconButton, ListItem} from "@mui/material";
-import {EditableSpan} from "@/EditableSpan.tsx";
+import {EditableSpan} from "@/common/components/EditableSpan/EditableSpan.tsx";
 import ClearIcon from "@mui/icons-material/Clear";
 import type {ChangeEvent} from "react";
 import {changeTaskStatusAC, changeTaskTitleAC, deleteTaskAC} from "@/features/todolists/model/tasks-reducer.ts";
