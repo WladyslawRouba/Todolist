@@ -1,17 +1,13 @@
-import {createTheme} from "@mui/material/styles";
-import {blue, deepOrange} from "@mui/material/colors";
-import {ThemeMode} from "@/app/app-reducer.ts";
-
+import type { ThemeMode } from "@/app/app-slice.ts"
+import { createTheme } from "@mui/material/styles"
 
 export const getTheme = (themeMode: ThemeMode) => {
-    return (createTheme({
-                palette: {
-                    primary: blue,
-                    secondary: deepOrange,
-                    mode: themeMode ,
-                }
-            }
-        )
-
-    )
+  return createTheme({
+    palette: {
+      mode: themeMode,
+      primary: {
+        main: "#087EA4",
+      },
+    },
+  })
 }

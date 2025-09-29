@@ -1,31 +1,24 @@
-import styles from './App.module.css';
-import './App.module.css'
-import {selectThemeMode} from './app-selector.ts'
-import {useAppSelector} from '../common/hooks/useAppSelector.ts'
-import CssBaseline from '@mui/material/CssBaseline';
-import {ThemeProvider } from '@mui/material/styles';
-import {getTheme} from "../common/theme/theme.ts";
-import {Header} from "@/common/components/Header/Header.tsx";
-import {Main} from "@/app/Main.tsx";
+import "./App.css"
+import { selectThemeMode } from "@/app/app-slice"
+import { Main } from "@/app/Main"
+import { Header } from "@/common/components/Header/Header"
+import { useAppSelector } from "@/common/hooks"
+import { getTheme } from "@/common/theme"
+import CssBaseline from "@mui/material/CssBaseline"
+import { ThemeProvider } from "@mui/material/styles"
 
+export const App = () => {
+  const themeMode = useAppSelector(selectThemeMode)
 
+  const theme = getTheme(themeMode)
 
-
-export function App() {
-
-    const themeMode =  useAppSelector(selectThemeMode)
-    const theme = getTheme(themeMode)
-
-    return (
-        <div className= {styles.app}>
-            <ThemeProvider theme={theme}>
-                <CssBaseline/>
-                <Header/>
-                <Main/>
-            </ThemeProvider>
-
-        </div>
-    )
+  return (
+    <ThemeProvider theme={theme}>
+      <div className={"app"}>
+        <CssBaseline />
+        <Header />
+        <Main />
+      </div>
+    </ThemeProvider>
+  )
 }
-
-export default  App

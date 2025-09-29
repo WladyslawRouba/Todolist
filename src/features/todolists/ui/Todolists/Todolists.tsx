@@ -1,27 +1,28 @@
-
-import Grid from "@mui/material/Grid";
-import Paper from "@mui/material/Paper";
-import {TodolistItem} from "@/features/todolists/ui/Todolists/TodolistsItem/TodolistItem.tsx";
-import {useAppSelector} from "@/common/hooks/useAppSelector.ts";
-import {selectTodolist} from "@/features/todolists/model/todolists-selector.ts";
-
-
+import { useAppDispatch, useAppSelector } from "@/common/hooks"
+import { fetchTodolistsTC, selectTodolists } from "@/features/todolists/model/todolists-slice"
+import Grid from "@mui/material/Grid2"
+import Paper from "@mui/material/Paper"
+import { useEffect } from "react"
+import { TodolistItem } from "./TodolistItem/TodolistItem"
 
 export const Todolists = () => {
-    const todolists = useAppSelector(selectTodolist )
+  const todolists = useAppSelector(selectTodolists)
 
+  const dispatch = useAppDispatch()
 
-    return (
-<>
-    {todolists.map((tl) => (
-            <Grid item xs={12} key={tl.id } >
-                <Paper elevation={7} sx={{ p: "25px" }}>
-                    <TodolistItem
-                        todolist={tl}
-                    />
-                </Paper>
-            </Grid>
-    ))}
-</>
-    )
+  useEffect(() => {
+    dispatch(fetchTodolistsTC())
+  }, [])
+
+  return (
+    <>
+      {todolists.map((todolist) => (
+        <Grid key={todolist.id}>
+          <Paper sx={{ p: "0 20px 20px 20px" }}>
+            <TodolistItem todolist={todolist} />
+          </Paper>
+        </Grid>
+      ))}
+    </>
+  )
 }
