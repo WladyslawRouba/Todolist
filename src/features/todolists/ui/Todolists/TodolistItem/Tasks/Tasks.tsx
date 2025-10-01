@@ -8,6 +8,7 @@ import { useAppDispatch } from "@/common/hooks"
 import {TaskStatus} from "@/common/enums";
 
 
+
 type Props = {
   todolist: DomainTodolist
 }
@@ -19,6 +20,7 @@ export const Tasks = ({ todolist }: Props) => {
 
    const dispatch = useAppDispatch()
   useEffect(() => {
+
     dispatch(fetchTasks(id))
 
   }, [])
