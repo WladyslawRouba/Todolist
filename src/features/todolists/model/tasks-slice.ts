@@ -1,9 +1,7 @@
 
-import {createTodolistTC, deleteTodolistTC} from "./todolists-slice"
 import {createAppSlice} from "@/common/utils"
 import {tasksApi} from "@/features/todolists/api/tasksApi.ts";
 import {DomainTask, UpdateTaskModel} from "@/features/todolists/api/tasksApi.types.ts";
-import {TaskStatus} from "@/common/enums";
 import {changeStatusAC} from "@/app/app-slice.ts";
 
 export const tasksSlice = createAppSlice({
@@ -12,29 +10,9 @@ export const tasksSlice = createAppSlice({
   selectors: {
     selectTasks: (state) => state,
   },
-  extraReducers: (builder) => {
-    builder
-      .addCase(createTodolistTC.fulfilled, (state, action) => {
-        state[action.payload.todolist.id] = []
-      })
-      .addCase(deleteTodolistTC.fulfilled, (state, action) => {
-        delete state[action.payload.id]
-      })
-  },
+
   reducers: (create) => ({
-    //actions
-    changeTaskStatusAC: create.reducer<{ todolistId: string; taskId: string; status: TaskStatus }>((state, action) => {
-      const task = state[action.payload.todolistId].find((task) => task.id === action.payload.taskId)
-      if (task) {
-        task.status = action.payload.status
-      }
-    }),
-    changeTaskTitleAC: create.reducer<{ todolistId: string; taskId: string; title: string }>((state, action) => {
-      const task = state[action.payload.todolistId].find((task) => task.id === action.payload.taskId)
-      if (task) {
-        task.title = action.payload.title
-      }
-    }),
+
     //thunks
     fetchTasks: create.asyncThunk(async( todolistId: string ,{ dispatch, rejectWithValue}) => {
       try{
@@ -108,13 +86,43 @@ return rejectWithValue(error)
           task.status = action.payload.task.status
         }
 
+      },
+
+    }),
+    changeTaskTitle: create.asyncThunk(async ( task: DomainTask, thunkAPI) => {
+      try{
+        const model: UpdateTaskModel = {
+          title: task.title,
+          description: task.description,      // если нужно, можно брать из state
+          status: task.status, // можно тоже взять из state
+          priority: task.priority,
+          startDate: task.startDate,
+          deadline: task.deadline,
+        }
+        const res = await tasksApi.updateTask({
+          todolistId: task.todoListId,
+          taskId: task.id,
+          model,
+        })
+
+        return { task: res.data.data.item }
+      } catch(error){
+       return  thunkAPI.rejectWithValue(null)
+      }
+    },{
+      fulfilled: (state, action) => {
+        const tasks = state[action.payload.task.todoListId]
+        const task = tasks.find((task) => task.id === action.payload.task.id)
+        if (task) {
+          task.title = action.payload.task.title
+        }
       }
     }),
   }),
 })
 
 export const { selectTasks } = tasksSlice.selectors
-export const { deleteTask, createTask, changeTaskStatus, changeTaskTitleAC,fetchTasks } = tasksSlice.actions
+export const { deleteTask, createTask, changeTaskStatus, changeTaskTitle,fetchTasks } = tasksSlice.actions
 export const tasksReducer = tasksSlice.reducer
 
 
