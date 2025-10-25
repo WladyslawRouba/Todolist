@@ -1,40 +1,27 @@
-
-import Snackbar, { SnackbarCloseReason } from '@mui/material/Snackbar';
-import Alert from '@mui/material/Alert';
-import  { SyntheticEvent } from'react';
-import {useAppDispatch, useAppSelector} from "@/common/hooks";
-import {selectAppError,setAppErrorAC} from "@/app/app-slice.ts";
-
+import { selectAppError, setAppErrorAC } from "@/app/app-slice"
+import { useAppDispatch, useAppSelector } from "@/common/hooks"
+import { SyntheticEvent } from "react"
+import Alert from "@mui/material/Alert"
+import Snackbar from "@mui/material/Snackbar"
 
 export const ErrorSnackbar = () => {
- /*   const [open, setOpen] = useState(true);*/
-const error = useAppSelector(selectAppError);
-const dispatch = useAppDispatch();
+  const error = useAppSelector(selectAppError)
 
-    const handleClose = (
-        _event?: SyntheticEvent | Event,
-        reason?: SnackbarCloseReason,
-    ) => {
-        if (reason === 'clickaway') {
-            return;
-        }
+  const dispatch = useAppDispatch()
 
-       dispatch(setAppErrorAC({error:null}))
-    };
+  const handleClose = (_: SyntheticEvent | Event, reason?: string) => {
+    if (reason === "clickaway") {
+      return
+    }
 
-    return (
-        <div>
+    dispatch(setAppErrorAC({ error: null }))
+  }
 
-            <Snackbar open={error!== null} autoHideDuration={6000} onClose={handleClose}>
-                <Alert
-                    onClose={handleClose}
-                    severity="error"
-                    variant="filled"
-                    sx={{ width: '100%' }}
-                >
-                    {error}
-                </Alert>
-            </Snackbar>
-        </div>
-    );
+  return (
+    <Snackbar open={error !== null} autoHideDuration={6000} onClose={handleClose}>
+      <Alert onClose={handleClose} severity="error" variant="filled" sx={{ width: "100%" }}>
+        {error}
+      </Alert>
+    </Snackbar>
+  )
 }
