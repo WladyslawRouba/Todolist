@@ -44,6 +44,9 @@ importers:
       react-router:
         specifier: ^7.9.4
         version: 7.9.4(react-dom@19.0.0(react@19.0.0))(react@19.0.0)
+      react-router-dom:
+        specifier: 7.9.4
+        version: 7.9.4(react-dom@19.0.0(react@19.0.0))(react@19.0.0)
       zod:
         specifier: ^4.1.12
         version: 4.1.12
@@ -1157,6 +1160,13 @@ packages:
         optional: true
       redux:
         optional: true
+
+  react-router-dom@7.9.4:
+    resolution: {integrity: sha512-f30P6bIkmYvnHHa5Gcu65deIXoA2+r3Eb6PJIAddvsT9aGlchMatJ51GgpU470aSqRRbFX22T70yQNUGuW3DfA==}
+    engines: {node: '>=20.0.0'}
+    peerDependencies:
+      react: '>=18'
+      react-dom: '>=18'
 
   react-router@7.9.4:
     resolution: {integrity: sha512-SD3G8HKviFHg9xj7dNODUKDFgpG4xqD5nhyd0mYoB5iISepuZAvzSr8ywxgxKJ52yRzf/HWtVHc9AWwoTbljvA==}
@@ -2294,6 +2304,12 @@ snapshots:
     optionalDependencies:
       '@types/react': 19.0.7
       redux: 5.0.1
+
+  react-router-dom@7.9.4(react-dom@19.0.0(react@19.0.0))(react@19.0.0):
+    dependencies:
+      react: 19.0.0
+      react-dom: 19.0.0(react@19.0.0)
+      react-router: 7.9.4(react-dom@19.0.0(react@19.0.0))(react@19.0.0)
 
   react-router@7.9.4(react-dom@19.0.0(react@19.0.0))(react@19.0.0):
     dependencies:
