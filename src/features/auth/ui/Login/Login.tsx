@@ -15,12 +15,17 @@ import { Controller, type SubmitHandler, useForm } from "react-hook-form"
 import styles from "./Login.module.css"
 import { useAppDispatch } from "@/common/hooks"
 import {loginTC} from "@/features/auth/authSlice.ts";
+import { Navigate } from "react-router"
+import { selectIsLoggedIn } from "@/features/auth/authSlice";
+import { Path } from "@/common/routing"
 
 export const Login = () => {
+  debugger
   const themeMode = useAppSelector(selectThemeMode)
-
+  const isLoggedIn = useAppSelector(selectIsLoggedIn)
   const theme = getTheme(themeMode)
   const dispatch = useAppDispatch()
+  //const navigate = useNavigate();
 
   const {
     register,
@@ -36,6 +41,10 @@ export const Login = () => {
   const onSubmit: SubmitHandler<LoginInputs> = (data) => {
     dispatch(loginTC(data))
     reset()
+  }
+  if(isLoggedIn){
+    debugger
+    return <Navigate to={Path.Main} />
   }
 
   return (
