@@ -15,11 +15,14 @@ export const authSlice = createAppSlice({
     selectIsLoggedIn: (state) => state.isLoggedIn,
   },
   reducers: (create) => ({
+    setIsLoggetIn: create.reducer<{ isLoggedIn: boolean}>((state,action)=> {
+      state.isLoggedIn = action.payload.isLoggedIn
+    }),
     loginTC: create.asyncThunk(
       async (data: LoginInputs, { dispatch, rejectWithValue }) => {
         try {
           dispatch(setAppStatusAC({ status: "loading" }))
-          const res = await authApi.login(data)
+          const res = await authApi.login({data})
           if (res.data.resultCode === ResultCode.Success) {
             dispatch(setAppStatusAC({ status: "succeeded" }))
             localStorage.setItem(AUTH_TOKEN, res.data.data.token)
@@ -91,5 +94,5 @@ export const authSlice = createAppSlice({
 })
 
 export const { selectIsLoggedIn } = authSlice.selectors
-export const { loginTC, logoutTC, initializeAppTC } = authSlice.actions
+export const { loginTC, logoutTC, initializeAppTC,setIsLoggetIn } = authSlice.actions
 export const authReducer = authSlice.reducer
