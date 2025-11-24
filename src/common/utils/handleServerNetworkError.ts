@@ -1,7 +1,16 @@
 import { setAppErrorAC, setAppStatusAC } from "@/app/app-slice"
 import type { Dispatch } from "@reduxjs/toolkit"
+import { isAxiosError } from "axios"
 
-export const handleServerNetworkError = (error: { message: string }, dispatch: Dispatch) => {
-  dispatch(setAppErrorAC({ error: error.message }))
+export const handleServerNetworkError = (error: unknown, dispatch: Dispatch) => {
+  let errorMsg = "Something went wrong."
+  
+  if (isAxiosError(error)) {
+    errorMsg = error.response?.data?.message || error.message
+  } else if (error instanceof Error) {
+    errorMsg = `Нативная ошибка ${error.message}`
+  }
+  
+  dispatch(setAppErrorAC({ error: errorMsg }))
   dispatch(setAppStatusAC({ status: "failed" }))
 }
