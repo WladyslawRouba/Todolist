@@ -26,7 +26,8 @@ export const tasksApi = baseApi.injectEndpoints({
     }),
     updateTask: build.mutation<
       BaseResponse<{ item: DomainTask }>,
-      { todolistId: string; taskId: string; model: UpdateTaskModel }>({
+      { todolistId: string; taskId: string; model: UpdateTaskModel }
+    >({
       query: ({ todolistId, taskId, model }) => ({
         url: `todo-lists/${todolistId}/tasks/${taskId}`,
         method: "PUT",
