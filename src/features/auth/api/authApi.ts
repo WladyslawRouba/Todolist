@@ -5,7 +5,11 @@ import type { LoginInputs } from "@/features/auth/lib/schemas"
 export const authApi = baseApi.injectEndpoints({
   endpoints: (builder) => ({
     login: builder.mutation<BaseResponse<{ userId: number; token: string }>, LoginInputs>({
-      query: (body) => ({ method: "post", url: "auth/login", body }),
+      query: (body) => ({
+        method: "post",
+        url: "auth/login", body
+      }),
+      invalidatesTags: ["Captcha"],
     }),
     logout: builder.mutation<BaseResponse, void>({
       query: () => ({ method: "delete", url: "auth/login" }),

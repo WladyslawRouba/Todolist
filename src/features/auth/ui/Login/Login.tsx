@@ -16,11 +16,14 @@ import Grid from "@mui/material/Grid"
 import TextField from "@mui/material/TextField"
 import { Controller, type SubmitHandler, useForm } from "react-hook-form"
 import styles from "./Login.module.css"
+import { useGetCaptchaQuery } from "@/features/securityApi/securityApi.ts"
 
 export const Login = () => {
   const themeMode = useAppSelector(selectThemeMode)
 
   const [login] = useLoginMutation()
+
+  const { data: captchaData } = useGetCaptchaQuery()
 
   const dispatch = useAppDispatch()
 
@@ -34,7 +37,7 @@ export const Login = () => {
     formState: { errors },
   } = useForm<LoginInputs>({
     resolver: zodResolver(loginSchema),
-    defaultValues: { email: "", password: "", rememberMe: false },
+    defaultValues: { email: "", password: "", rememberMe: false, captcha: "" },
   })
 
   const onSubmit: SubmitHandler<LoginInputs> = (data) => {
@@ -92,6 +95,26 @@ export const Login = () => {
                 />
               }
             />
+            {captchaData?.url && (
+                <>
+                  <img
+                      src={captchaData.url}
+                      alt="captcha"
+                      style={{ width: "150px", marginTop: "10px" }}
+                  />
+
+                  <TextField
+                      label="Captcha"
+                      margin="normal"
+                      error={!!errors.captcha}
+                      {...register("captcha")}
+                  />
+                  {errors.captcha && (
+                      <span className={styles.errorMessage}>{errors.captcha.message}</span>
+                  )}
+                </>
+            )}
+
             <Button type="submit" variant="contained" color="primary">
               Login
             </Button>
