@@ -1,0 +1,58 @@
+{
+  "hash": "2e4e1c3e",
+  "configHash": "d620d4e5",
+  "lockfileHash": "de82f9cf",
+  "browserHash": "a9c598d1",
+  "optimized": {
+    "react/jsx-dev-runtime": {
+      "src": "../../node_modules/.pnpm/react@19.0.0/node_modules/react/jsx-dev-runtime.js",
+      "file": "react_jsx-dev-runtime.js",
+      "fileHash": "83f98002",
+      "needsInterop": true
+    },
+    "react-dom/client": {
+      "src": "../../node_modules/.pnpm/react-dom@19.0.0_react@19.0.0/node_modules/react-dom/client.js",
+      "file": "react-dom_client.js",
+      "fileHash": "635ecef5",
+      "needsInterop": true
+    },
+    "react-redux": {
+      "src": "../../node_modules/.pnpm/react-redux@9.2.0_@types+react@19.0.7_react@19.0.0_redux@5.0.1/node_modules/react-redux/dist/react-redux.mjs",
+      "file": "react-redux.js",
+      "fileHash": "85db73c4",
+      "needsInterop": false
+    },
+    "react-router": {
+      "src": "../../node_modules/.pnpm/react-router@7.9.4_react-dom@19.0.0_react@19.0.0__react@19.0.0/node_modules/react-router/dist/development/index.mjs",
+      "file": "react-router.js",
+      "fileHash": "726f5a89",
+      "needsInterop": false
+    },
+    "@reduxjs/toolkit": {
+      "src": "../../node_modules/.pnpm/@reduxjs+toolkit@2.5.0_react-redux@9.2.0_@types+react@19.0.7_react@19.0.0_redux@5.0.1__react@19.0.0/node_modules/@reduxjs/toolkit/dist/redux-toolkit.modern.mjs",
+      "file": "@reduxjs_toolkit.js",
+      "fileHash": "3b96bb80",
+      "needsInterop": false
+    },
+    "@reduxjs/toolkit/query": {
+      "src": "../../node_modules/.pnpm/@reduxjs+toolkit@2.5.0_react-redux@9.2.0_@types+react@19.0.7_react@19.0.0_redux@5.0.1__react@19.0.0/node_modules/@reduxjs/toolkit/dist/query/rtk-query.modern.mjs",
+      "file": "@reduxjs_toolkit_query.js",
+      "fileHash": "9a82386a",
+      "needsInterop": false
+    }
+  },
+  "chunks": {
+    "chunk-ACEXSDSB": {
+      "file": "chunk-ACEXSDSB.js"
+    },
+    "chunk-6FSDJCIE": {
+      "file": "chunk-6FSDJCIE.js"
+    },
+    "chunk-T5BOWU5W": {
+      "file": "chunk-T5BOWU5W.js"
+    },
+    "chunk-EQCVQC35": {
+      "file": "chunk-EQCVQC35.js"
+    }
+  }
+}
