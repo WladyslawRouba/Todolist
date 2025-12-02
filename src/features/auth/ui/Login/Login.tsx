@@ -17,13 +17,17 @@ import TextField from "@mui/material/TextField"
 import { Controller, type SubmitHandler, useForm } from "react-hook-form"
 import styles from "./Login.module.css"
 import { useGetCaptchaQuery } from "@/features/securityApi/securityApi.ts"
+import { useState } from "react"
 
 export const Login = () => {
   const themeMode = useAppSelector(selectThemeMode)
-
+  const [needCaptcha, setNeedCaptcha] = useState(false)
   const [login] = useLoginMutation()
 
-  const { data: captchaData } = useGetCaptchaQuery()
+
+  const { data: captchaData, refetch: refetchCaptcha } = useGetCaptchaQuery(undefined, {
+    skip: !needCaptcha, // NEW
+  })
 
   const dispatch = useAppDispatch()
 
@@ -46,6 +50,11 @@ export const Login = () => {
         dispatch(setIsLoggedInAC({ isLoggedIn: true }))
         localStorage.setItem(AUTH_TOKEN, res.data.data.token)
         reset()
+        setNeedCaptcha(false)
+      }
+      if (res.data?.resultCode === 10) {
+        setNeedCaptcha(true)
+        refetchCaptcha()
       }
     })
   }
@@ -95,7 +104,7 @@ export const Login = () => {
                 />
               }
             />
-            {captchaData?.url && (
+            {needCaptcha && captchaData?.url && (
                 <>
                   <img
                       src={captchaData.url}
