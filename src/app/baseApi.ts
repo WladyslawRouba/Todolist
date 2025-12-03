@@ -1,10 +1,10 @@
 import { AUTH_TOKEN } from "@/common/constants"
 import { handleError } from "@/common/utils"
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react"
-const  BASE_URL =
+const BASE_URL =
     import.meta.env.MODE === "production"
         ? "https://social-network.samuraijs.com/api/1.0/"
-        : "https://social-network.samuraijs.com/api/1.1/"
+        : import.meta.env.VITE_BASE_URL;
 export const baseApi = createApi({
   reducerPath: "todolistsApi",
   tagTypes: ["Todolist", "Task","Captcha"] ,
